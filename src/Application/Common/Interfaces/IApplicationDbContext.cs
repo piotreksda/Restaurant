@@ -8,7 +8,7 @@ namespace Restaurant.Application.Common.Interfaces
 	{
         DbSet<Table> Table { get; }
 
-        Task<Guid> SaveChangesAsync(CancellationToken cancellationToken);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
 

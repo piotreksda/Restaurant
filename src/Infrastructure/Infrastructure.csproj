@@ -7,7 +7,46 @@
     <AssemblyName>Restaurant.Infrastructure</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>Library</OutputType>
+    
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Infrastructure' " />
+  <ItemGroup>
+    <None Remove="Identity\" />
+    <None Remove="Persistence\" />
+    <None Remove="Persistence\Interceptors\" />
+    <None Remove="AutoMapper" />
+    <None Remove="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" />
+    <None Remove="Common\" />
+    <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Microsoft.EntityFrameworkCore.InMemory" />
+    <None Remove="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <None Remove="Services\" />
+    <None Remove="Persistence\Configurations\" />
+    <None Remove="Persistence\Migrations\" />
+    <None Remove="Persistence\Migrations\00000000000000_InitialCreate.Designer" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Identity\" />
+    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\Interceptors\" />
+    <Folder Include="Common\" />
+    <Folder Include="Services\" />
+    <Folder Include="Persistence\Configurations\" />
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.3" />
+  </ItemGroup>
+  
 </Project>
