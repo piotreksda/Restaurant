@@ -39,9 +39,11 @@
     <Folder Include="Filters\" />
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\api\" />
+    <Folder Include="wwwroot\SwaggerExtension\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\" />
     <Content Remove="wwwroot\api\" />
+    <Content Remove="wwwroot\SwaggerExtension\" />
   </ItemGroup>
 </Project>

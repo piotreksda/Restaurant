@@ -40,11 +40,26 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseOpenApi();
 app.UseSwaggerUi3(settings =>
 {
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
+    //settings.CustomHeadContent = @"
+    //        <link href='my-section.html' rel='my-section' />
+    //    ";
+    //settings.OAuth2Client
+    //settings.HeadContent = @"
+    //        <link href='my-section.html' rel='my-section' />
+    //    ";
+
+    //settings.CustomAssets.Add(new SwaggerUIExternalScriptsCustomAsset("my-section", new[] { "my-section.html" }));
+
 });
+
+//app.UseSwaggerUi3(settings =>
+//{
+//    settings.Path = "/api";
+//    settings.DocumentPath = "/api/specification.json";
+//});
 
 app.UseRouting();
 
