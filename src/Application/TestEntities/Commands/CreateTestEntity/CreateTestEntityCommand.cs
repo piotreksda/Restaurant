@@ -3,25 +3,25 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Application.Common.Interfaces;
 using Restaurant.Domain.Entites;
-namespace Restaurant.Application.Tables.Commands.CreateTable
+namespace Restaurant.Application.TestEntities.Commands.CreateTestEntity
 {
-	public record CreateTableCommand : IRequest<Guid>
+	public record CreateTestEntityCommand : IRequest<Guid>
     {
         public int? SeatsCount { get; init; }
     }
-    public class CreateTableCommandHandler : IRequestHandler<CreateTableCommand, Guid>
+    public class CreateTestEntityCommandHandler : IRequestHandler<CreateTestEntityCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
 
-        public CreateTableCommandHandler(IApplicationDbContext context)
+        public CreateTestEntityCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
-        public async Task<Guid> Handle(CreateTableCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateTestEntityCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Table();
+            var entity = new TestEntity();
             entity.SeatsCount = request.SeatsCount;
-            _context.Table.Add(entity);
+            _context.TestEntities.Add(entity);
 
             await _context.SaveChangesAsync(cancellationToken);
 

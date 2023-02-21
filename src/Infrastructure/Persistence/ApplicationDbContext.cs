@@ -29,11 +29,7 @@ namespace Restaurant.Infrastructure.Persistence
             _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
         }
 
-        public DbSet<Table> Tables => Set<Table>();
-
-        DbSet<Table> IApplicationDbContext.Table => throw new NotImplementedException();
-
-        //public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+        public DbSet<TestEntity> TestEntities => Set<TestEntity>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

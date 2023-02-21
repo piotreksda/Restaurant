@@ -6,7 +6,7 @@ namespace Restaurant.Application.Common.Interfaces
 {
 	public interface IApplicationDbContext
 	{
-        DbSet<Table> Table { get; }
+        DbSet<TestEntity> TestEntities { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

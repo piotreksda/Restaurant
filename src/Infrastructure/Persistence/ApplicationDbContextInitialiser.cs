@@ -71,9 +71,9 @@ namespace Restaurant.Infrastructure.Persistence
 
             // Default data
             // Seed, if necessary
-            if (!_context.Tables.Any())
+            if (!_context.TestEntities.Any())
             {
-                _context.Tables.Add(new Table
+                _context.TestEntities.Add(new TestEntity
                 {
                     SeatsCount = 4,
                     Reserved = false

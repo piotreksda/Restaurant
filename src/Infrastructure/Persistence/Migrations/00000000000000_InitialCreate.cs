@@ -104,7 +104,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Table",
+                name: "TestEntity",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -331,7 +331,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
-                name: "Table");
+                name: "TestEntity");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

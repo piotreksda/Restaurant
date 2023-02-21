@@ -5,9 +5,9 @@ using Restaurant.Domain.Entites;
 
 namespace Restaurant.Infrastructure.Persistence.Configurations
 {
-	public class TableConfiguration: IEntityTypeConfiguration<Table>
+	public class TestEntityConfiguration: IEntityTypeConfiguration<TestEntity>
     {
-        public void Configure(EntityTypeBuilder<Table> builder)
+        public void Configure(EntityTypeBuilder<TestEntity> builder)
         {
             builder.Property(t => t.SeatsCount)
             .IsRequired();

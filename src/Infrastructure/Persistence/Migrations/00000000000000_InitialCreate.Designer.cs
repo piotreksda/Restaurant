@@ -18,7 +18,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Restaurant.Domain.Entities.Table", b =>
+            modelBuilder.Entity("Restaurant.Domain.Entities.TestEntity", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
@@ -402,7 +402,7 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
             {
-                b.HasOne("test123123123.Infrastructure.Identity.ApplicationUser", null)
+                b.HasOne("Restaurant.Infrastructure.Identity.ApplicationUser", null)
                     .WithMany()
                     .HasForeignKey("UserId")
                     .OnDelete(DeleteBehavior.Cascade)

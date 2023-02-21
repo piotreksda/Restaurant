@@ -4,7 +4,7 @@ using Restaurant.Domain.Events;
 
 namespace Restaurant.Domain.Entites
 {
-	public class Table : BaseAuditableEntity
+	public class TestEntity : BaseAuditableEntity
 	{
 		public Guid Id { get; set; }
 		public int? SeatsCount {get;set;}
@@ -16,7 +16,7 @@ namespace Restaurant.Domain.Entites
 			{
                 if (value == true && _reserved == false)
                 {
-                    AddDomainEvent(new TableReservedEvent(this));
+                    AddDomainEvent(new TestEntityReservedEvent(this));
                 }
 
                 _reserved = value;

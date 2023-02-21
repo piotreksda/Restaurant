@@ -4,13 +4,13 @@ using Restaurant.Domain.Entites;
 
 namespace Restaurant.Domain.Events
 {
-	public class TableReservedEvent: BaseEvent
+	public class TestEntityReservedEvent: BaseEvent
 	{
-		public TableReservedEvent(Table item)
+		public TestEntityReservedEvent(TestEntity item)
 		{
 			Item = item;
 		}
-		public Table Item { get; }
+		public TestEntity Item { get; }
 	}
 }
 
