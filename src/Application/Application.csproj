@@ -22,6 +22,7 @@
     <None Remove="Common\Behaviours\" />
     <None Remove="Common\Models\" />
     <None Remove="Common\Exceptions\" />
+    <None Remove="TestEntities\Commands\DeleteTestEntity\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
@@ -38,6 +39,7 @@
     <Folder Include="Common\Behaviours\" />
     <Folder Include="Common\Models\" />
     <Folder Include="Common\Exceptions\" />
+    <Folder Include="TestEntities\Commands\DeleteTestEntity\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

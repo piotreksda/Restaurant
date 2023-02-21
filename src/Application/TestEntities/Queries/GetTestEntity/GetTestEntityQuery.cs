@@ -21,6 +21,7 @@ namespace Restaurant.Application.TestEntities.Queries.GetTestEntity
         public async Task<List<TestEntityDto>> Handle(GetTestEntityQuery request, CancellationToken cancellationToken)
         {
             return await _context.TestEntities
+                .AsNoTracking()
                 .ProjectTo<TestEntityDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
         }
