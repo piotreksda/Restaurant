@@ -3,8 +3,33 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>Restaurant.Application.IntegrationTests</AssemblyName>
+    <RootNamespace>Restaurant.Application.IntegrationTests</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Application.IntegrationTests' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="FluentAssertions" Version="6.10.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="Respawn" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Presentation\Presentation.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TestEntity\" />
+    <None Remove="TestEntity\Commands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestEntity\" />
+    <Folder Include="TestEntity\Commands\" />
+  </ItemGroup>
 </Project>

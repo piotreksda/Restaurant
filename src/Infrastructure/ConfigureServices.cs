@@ -19,6 +19,10 @@ public static class ConfigureServices
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("RestaurantDb"));
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlite("Data Source=Sharable;Mode=Memory;Cache=Shared",
+            //    x => x.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
         else
         {

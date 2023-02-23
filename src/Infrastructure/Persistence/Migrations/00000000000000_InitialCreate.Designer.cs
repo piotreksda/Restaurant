@@ -18,37 +18,41 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Restaurant.Domain.Entities.TestEntity", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("uniqueidentifier");
+            
+        modelBuilder.Entity("Restaurant.Domain.Entities.TestEntity", b =>
+        {
+            b.Property<Guid>("Id")
+                .ValueGeneratedOnAdd()
+                .HasColumnType("uniqueidentifier");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<Guid>("Id"));
+            b.Property<DateTime>("Created")
+                .HasColumnType("datetime2");
 
-                b.Property<bool>("Reserved")
-                    .HasColumnType("bit");
+            b.Property<string>("CreatedBy")
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
-                b.Property<DateTime>("Created")
-                    .HasColumnType("datetime2");
+            b.Property<DateTime?>("LastModified")
+                .HasColumnType("datetime2");
 
-                b.Property<string>("CreatedBy")
-                    .HasColumnType("nvarchar(max)");
+            b.Property<string>("LastModifiedBy")
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
-                b.Property<bool>("Done")
-                    .HasColumnType("bit");
+            b.Property<bool>("Reserved")
+                .HasColumnType("bit");
 
-                b.Property<DateTime?>("LastModified")
-                    .HasColumnType("datetime2");
+            b.Property<int?>("SeatsCount")
+                .HasColumnName("Seats_Count")
+                .HasColumnType("int");
 
-                b.Property<string>("LastModifiedBy")
-                    .HasColumnType("nvarchar(max)");
+            b.HasKey("Id");
 
-                b.HasKey("Id");
-
+            b.ToTable("TestEntities");
             });
+        
 
-            modelBuilder.Entity("Restaurant.Infrastructure.Identity.ApplicationUser", b =>
+        modelBuilder.Entity("Restaurant.Infrastructure.Identity.ApplicationUser", b =>
             {
                 b.Property<string>("Id")
                     .HasColumnType("nvarchar(450)");

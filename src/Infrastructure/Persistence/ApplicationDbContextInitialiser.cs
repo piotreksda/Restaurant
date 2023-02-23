@@ -29,6 +29,11 @@ namespace Restaurant.Infrastructure.Persistence
                 {
                     await _context.Database.MigrateAsync();
                 }
+                //else if (_context.Database.IsSqlite())
+                //{
+                //    //await _context.Database.OpenConnectionAsync();
+                //    await _context.Database.MigrateAsync();
+                //}
             }
             catch (Exception ex)
             {

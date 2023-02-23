@@ -21,29 +21,31 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("uniqueidentifier");
-                
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<Guid>("Id"));
-
-                b.Property<bool>("Reserved")
-                    .HasColumnType("bit");
 
                 b.Property<DateTime>("Created")
                     .HasColumnType("datetime2");
 
                 b.Property<string>("CreatedBy")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<bool>("Done")
-                    .HasColumnType("bit");
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 b.Property<DateTime?>("LastModified")
                     .HasColumnType("datetime2");
 
                 b.Property<string>("LastModifiedBy")
-                    .HasColumnType("nvarchar(max)");
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                b.Property<bool>("Reserved")
+                    .HasColumnType("bit");
+
+                b.Property<int?>("SeatsCount")
+                    .HasColumnName("Seats_Count")
+                    .HasColumnType("int");
 
                 b.HasKey("Id");
 
+                b.ToTable("TestEntities");
             });
 
             modelBuilder.Entity("Restaurant.Infrastructure.Identity.ApplicationUser", b =>

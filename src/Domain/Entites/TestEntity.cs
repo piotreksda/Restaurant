@@ -6,7 +6,6 @@ namespace Restaurant.Domain.Entites
 {
 	public class TestEntity : BaseAuditableEntity
 	{
-		public Guid Id { get; set; }
 		public int? SeatsCount {get;set;}
         private bool _reserved;
 		public bool Reserved
