@@ -42,6 +42,11 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Install dockerize
+      run: |
+        wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
+        tar -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
+        sudo mv dockerize /usr/local/bin/
     - name: Wait for SQL Server to be ready
       run: |
         dockerize -wait tcp://localhost:1433 -timeout 1m
