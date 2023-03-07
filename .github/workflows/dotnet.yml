@@ -75,3 +75,7 @@ jobs:
         name: DotNet Tests
         path: "**/test-results.trx"
         reporter: dotnet-trx
+        permissions: |
+          id-token: write
+          contents: read
+          checks: write
