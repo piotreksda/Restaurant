@@ -54,5 +54,5 @@ jobs:
         dockerize -wait tcp://localhost:1433 -timeout 1m
     - name: Test
       env:
-        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX"
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
       run: dotnet test --no-build --verbosity normal
