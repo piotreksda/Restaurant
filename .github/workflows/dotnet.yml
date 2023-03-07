@@ -68,4 +68,10 @@ jobs:
     - name: Test
       env:
         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+    - name: Test Report
+      uses: dorny/test-reporter@v1.6.0
+      with:
+        name: DotNet Tests
+        path: "**/test-results.trx"
+        reporter: dotnet-trx
