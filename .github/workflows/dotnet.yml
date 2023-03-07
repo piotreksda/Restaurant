@@ -7,19 +7,19 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: 7.0.x
+#     - name: Restore dependencies
+#       run: dotnet restore
+#     - name: Build
+#       run: dotnet build --no-restore
 #     - name: Copy out file from volume
 #       run: |
 #         sudo cp /var/lib/docker/volumes/example_reports/_data/test.txt /home/buildfolder
@@ -30,9 +30,8 @@ jobs:
 #         path: .
 #         if-no-files-found: error
 
-  test:
+  build:
     runs-on: ubuntu-latest
-    needs: build
     permissions:
       id-token: write
       contents: read
@@ -58,13 +57,16 @@ jobs:
 #         name: build-artifact
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --no-restore
+      
     - name: Install dockerize
       run: |
         wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
         tar -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
         sudo mv dockerize /usr/local/bin/
+        
     - name: Wait for SQL Server to be ready
       run: |
         dockerize -wait tcp://localhost:1433 -timeout 1m
@@ -72,11 +74,10 @@ jobs:
       env:
         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
       run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+      
     - name: Test Report
       uses: dorny/test-reporter@v1.6.0
-      
       with:
         name: DotNet Tests
         path: "**/test-results.trx"
         reporter: dotnet-trx
-        # token: ''
