@@ -63,17 +63,17 @@ jobs:
       
     - name: Build
       run: dotnet build --no-restore
-    
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        args: >
-          -Dsonar.organization=piotreksda
-          -Dsonar.projectKey=piotreksda_Restaurant
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      
+#     - name: SonarCloud Scan
+#       uses: sonarsource/sonarcloud-github-action@master
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#       with:
+#         args: >
+#           -Dsonar.organization=piotreksda
+#           -Dsonar.projectKey=piotreksda_Restaurant
+#           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
     
     - name: Install dockerize
       run: |
@@ -84,14 +84,29 @@ jobs:
     - name: Wait for SQL Server to be ready
       run: |
         dockerize -wait tcp://localhost:1433 -timeout 1m
-    - name: Test
+#     - name: Test
+#       env:
+#         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
+#       run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=/TestResulttest-results.trx" || true
+    - name: SonarScanner for .NET 7 with pull request decoration support
+      uses: highbyte/sonarscan-dotnet@v2.2.1
       env:
-        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
-      run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
-      
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        # The key of the SonarQube project
+        sonarProjectKey: piotreksda_Restaurant
+        # The name of the SonarQube project
+        sonarProjectName:  Restaurant
+        # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
+        sonarOrganization: piotreksda
+        # Optional command arguments to dotnet test
+        dotnetTestArguments: --no-build --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        # Optional extra command arguments the the SonarScanner 'begin' command
+        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
     - name: Test Report
       uses: dorny/test-reporter@v1.6.0
       with:
         name: DotNet Tests
-        path: "**/test-results.trx"
+        path: "**/TestResults/*.trx"
         reporter: dotnet-trx
