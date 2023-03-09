@@ -68,10 +68,10 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -sonar.organization=piotreksda
-          -sonar.projectKey=piotreksda_Restaurant
-          -sonar.host.url="https://sonarcloud.io
-          -sonar.login="${{ secrets.SONAR_TOKEN }}"
+          -Dsonar.organization=piotreksda
+          -Dsonar.projectKey=piotreksda_Restaurant
+          -Dsonar.host.url="https://sonarcloud.io
+          -Dsonar.login="${{ secrets.SONAR_TOKEN }}"
     
     - name: Install dockerize
       run: |
