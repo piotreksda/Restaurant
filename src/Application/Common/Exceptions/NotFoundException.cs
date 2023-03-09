@@ -1,6 +1,7 @@
 ﻿using System;
 namespace Restaurant.Application.Common.Exceptions
 {
+    [Serializable]
     public class NotFoundException : Exception
     {
         public NotFoundException()
