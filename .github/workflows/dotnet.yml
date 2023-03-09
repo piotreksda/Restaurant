@@ -79,9 +79,9 @@ jobs:
       uses: dorny/test-reporter@v1.6.0
       with:
         name: DotNet Tests
-        path: "**/TestResults/*.trx"
+        path: "**/TestResults/**.trx"
         reporter: dotnet-trx
-        
+        # TestResults/TestResult/test-results.trx
   CodeQuality-Raport:
     runs-on: ubuntu-latest
     needs: build
