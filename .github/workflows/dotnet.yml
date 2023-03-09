@@ -66,7 +66,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      
+      with:
+        args: >
+          -sonar.organization=piotreksda
+          -sonar.projectKey=piotreksda_Restaurant
+          -sonar.host.url="https://sonarcloud.io
+          -sonar.login="${{ secrets.SONAR_TOKEN }}"
     
     - name: Install dockerize
       run: |
