@@ -70,7 +70,7 @@ jobs:
         args: >
           -Dsonar.organization=piotreksda
           -Dsonar.projectKey=piotreksda_Restaurant
-          -Dsonar.login="${{ secrets.SONAR_TOKEN }}"
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
     
     - name: Install dockerize
       run: |
