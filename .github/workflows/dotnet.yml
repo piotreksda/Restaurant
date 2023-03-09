@@ -84,10 +84,7 @@ jobs:
     - name: Wait for SQL Server to be ready
       run: |
         dockerize -wait tcp://localhost:1433 -timeout 1m
-#     - name: Test
-#       env:
-#         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
-#       run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=/TestResulttest-results.trx" || true
+
     - name: SonarScanner for .NET 7 with pull request decoration support
       uses: highbyte/sonarscan-dotnet@v2.2.1
       env:
@@ -100,10 +97,15 @@ jobs:
         sonarProjectName:  Restaurant
         # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
         sonarOrganization: piotreksda
-        # Optional command arguments to dotnet test
-        dotnetTestArguments: --no-build --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-        # Optional extra command arguments the the SonarScanner 'begin' command
+        dotnetDisableTests: true
+#         # Optional command arguments to dotnet test
+#         dotnetTestArguments: --no-build --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+#         # Optional extra command arguments the the SonarScanner 'begin' command
         sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+    - name: Test
+      env:
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
+      run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=/TestResulttest-results.trx" || true
     - name: Test Report
       uses: dorny/test-reporter@v1.6.0
       with:
