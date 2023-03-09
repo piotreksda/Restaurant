@@ -47,9 +47,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -63,17 +60,6 @@ jobs:
       
     - name: Build
       run: dotnet build --no-restore
-      
-#     - name: SonarCloud Scan
-#       uses: sonarsource/sonarcloud-github-action@master
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#       with:
-#         args: >
-#           -Dsonar.organization=piotreksda
-#           -Dsonar.projectKey=piotreksda_Restaurant
-#           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
     
     - name: Install dockerize
       run: |
@@ -85,6 +71,28 @@ jobs:
       run: |
         dockerize -wait tcp://localhost:1433 -timeout 1m
 
+    - name: Test
+      env:
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
+      run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=/TestResulttest-results.trx" || true
+    - name: Test Report
+      uses: dorny/test-reporter@v1.6.0
+      with:
+        name: DotNet Tests
+        path: "**/TestResults/*.trx"
+        reporter: dotnet-trx
+        
+  CodeQuality-Raport:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
     - name: SonarScanner for .NET 7 with pull request decoration support
       uses: highbyte/sonarscan-dotnet@v2.2.1
       env:
@@ -98,17 +106,8 @@ jobs:
         # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
         sonarOrganization: piotreksda
         dotnetDisableTests: true
-#         # Optional command arguments to dotnet test
-#         dotnetTestArguments: --no-build --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-#         # Optional extra command arguments the the SonarScanner 'begin' command
-        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
-    - name: Test
-      env:
-        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=MyDb;User Id=sa;Password=zaq1@WSX;Encrypt=False;"
-      run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=/TestResulttest-results.trx" || true
-    - name: Test Report
-      uses: dorny/test-reporter@v1.6.0
-      with:
-        name: DotNet Tests
-        path: "**/TestResults/*.trx"
-        reporter: dotnet-trx
+  #         # Optional command arguments to dotnet test
+  #         dotnetTestArguments: --no-build --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+  #         # Optional extra command arguments the the SonarScanner 'begin' command
+  #         sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+
