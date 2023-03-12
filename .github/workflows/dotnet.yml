@@ -37,7 +37,7 @@ jobs:
       contents: read
       checks: write
       issues: read
-  pull-requests: write
+      pull-requests: write
     services:
       sql-server:
         image: mcr.microsoft.com/mssql/server:2019-latest
