@@ -39,7 +39,7 @@ namespace Restaurant.Application.Common.Behaviours
                 {
                     var authorized = false;
 
-                    foreach (var roles in authorizeAttributesWithRoles.Select(a => a!.Roles.Split(',')))
+                    foreach (var roles in authorizeAttributesWithRoles.Select(a => a.Roles.Split(',')))
                     {
                         foreach (var role in roles)
                         {
